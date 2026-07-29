@@ -1,0 +1,1183 @@
+{
+  "name": "01 - AI Candidate Screening & Recruitment",
+  "nodes": [
+    {
+      "parameters": {
+        "modelName": "models/gemini-flash-latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        480,
+        208
+      ],
+      "id": "af4502d2-8cdb-4a8d-8150-cdef3b1b26c3",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "1E0hTMfhZRL3WOBi",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"score\": 84,\n  \"summary\": \"...\",\n  \"skills\": [\"Python\", \"n8n\"],\n  \"experience\": \"...\",\n  \"decision\": \"Strong Hire\",\n  \"reason\": \"...\",\n  \"strengths\": [\n    \"Strong Python skills\",\n    \"Good AI projects\"\n  ],\n  \"weaknesses\": [\n    \"Limited industry experience\"\n  ],\n  \"interview_questions\": [\n    \"Explain CrewAI architecture.\",\n    \"What is RAG?\"\n  ]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        720,
+        208
+      ],
+      "id": "ed62e14f-8e50-4500-aea7-84992219d760",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY",
+          "mode": "list",
+          "cachedResultName": "Candidates Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Candidates",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Position": "={{ $json['Question 4: Position Applied For  '] }}",
+            "Full Name": "={{ $json['Question 1: Full Name '] }}",
+            "Email": "={{ $json['Question 2: Email Address '] }}",
+            "Phone": "={{ $json['Question 3: Phone Number '] }}",
+            "Experience": "={{ $json['Question 5: Years of Experience '] }}",
+            "Resume Link": "={{ $json['Question 7: Resume Upload '] }}",
+            "Status": "Applied",
+            "AI Score": "0",
+            "Skills": "={{ $json['Question 6: Skills '] }}",
+            "Interview Date": "=",
+            "Applied On": "={{ $now.toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Candidate ID",
+              "displayName": "Candidate ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Position",
+              "displayName": "Position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Experience",
+              "displayName": "Experience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Skills",
+              "displayName": "Skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Resume Link",
+              "displayName": "Resume Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AI Score",
+              "displayName": "AI Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Interview Date",
+              "displayName": "Interview Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "HR Remarks",
+              "displayName": "HR Remarks",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Applied On",
+              "displayName": "Applied On",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -32,
+        -16
+      ],
+      "id": "e310e15c-da1b-4123-b23e-6c1681b7b0ac",
+      "name": "Append rows in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "tIA7mGlVuR8Tja6H",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "18gNZj321BEPJXXe2ZvcvllFO2mZdWW5bsW97Vj0sSGY",
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18gNZj321BEPJXXe2ZvcvllFO2mZdWW5bsW97Vj0sSGY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 662299652,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18gNZj321BEPJXXe2ZvcvllFO2mZdWW5bsW97Vj0sSGY/edit#gid=662299652"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        -16
+      ],
+      "id": "64f19bb7-8595-4b7b-80f9-84b5b1c5fc45",
+      "name": "Candidate Registration Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "JYnsuexdJegK6gYI",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json['Resume Link'].split('id=')[1].split('&')[0] }}",
+          "mode": "id"
+        },
+        "options": {
+          "binaryPropertyName": "data"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        144,
+        -16
+      ],
+      "id": "8729b1be-e4c4-4de6-b99a-aa5208f6bf23",
+      "name": "Resume Downloader",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "So34UsqRZhQ5oqiB",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "=data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        320,
+        -16
+      ],
+      "id": "ab5caf2a-d48a-4536-9d91-5feb1749af61",
+      "name": "Resume Parser"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an experienced Senior Technical Recruiter hiring for a leading software company.\n\nYour task is to analyze the candidate's resume based on the job description and resume content.\n\nResume Text:\n{{ $json.text }}\n\nEvaluate the candidate on the following criteria:\n\n1. Technical Skills (30 Marks)\n2. Relevant Experience (20 Marks)\n3. Projects & Portfolio (20 Marks)\n4. Education (10 Marks)\n5. Communication & Resume Quality (10 Marks)\n6. Job Relevance (10 Marks)\n\nCalculate a final score out of 100.\n\nDecision Rules:\n- 80–100 → Strong Hire\n- 70–79 → Shortlist\n- Below 70 → Reject\n\nReturn ONLY valid JSON in this exact format:\n\n{\n  \"score\": 0,\n  \"summary\": \"\",\n  \"skills\": [],\n  \"experience\": \"\",\n  \"decision\": \"\",\n  \"reason\": \"\",\n  \"strengths\": [],\n  \"weaknesses\": [],\n  \"interview_questions\": []\n}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": []
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        528,
+        -16
+      ],
+      "id": "a37d2fcb-55e2-4015-89c6-7a5a17cf90eb",
+      "name": "AI Resume Evaluator"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY",
+          "mode": "list",
+          "cachedResultName": "Candidates Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Candidates",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Candidate ID": "=",
+            "AI Score": "=",
+            "Status": "=Under Review",
+            "HR Remarks": "=",
+            "Email": "={{ $('Candidate Registration Trigger').item.json[\"Question 2: Email Address \"] }}",
+            "Weaknesses": "={{$node[\"AI Resume Evaluator\"].json.output.weaknesses.join(\", \")}}",
+            "Strengths": "={{$node[\"AI Resume Evaluator\"].json.output.strengths.join(\", \")}}",
+            "Interview Questions": "={{$node[\"AI Resume Evaluator\"].json.output.interview_questions.join(\"\\n\")}}"
+          },
+          "matchingColumns": [
+            "Email"
+          ],
+          "schema": [
+            {
+              "id": "Candidate ID",
+              "displayName": "Candidate ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Position",
+              "displayName": "Position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Experience",
+              "displayName": "Experience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Skills",
+              "displayName": "Skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Resume Link",
+              "displayName": "Resume Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "AI Score",
+              "displayName": "AI Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Interview Date",
+              "displayName": "Interview Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "HR Remarks",
+              "displayName": "HR Remarks",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Applied On",
+              "displayName": "Applied On",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Decision",
+              "displayName": "Decision",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Reason",
+              "displayName": "Reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Strengths",
+              "displayName": "Strengths",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Weaknesses",
+              "displayName": "Weaknesses",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Interview Questions",
+              "displayName": "Interview Questions",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        848,
+        -16
+      ],
+      "id": "7f1e00e9-02f7-438a-9c72-97aa2483718f",
+      "name": "Candidate Database Update",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "tIA7mGlVuR8Tja6H",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "6d42830c-9226-4936-9706-c8f8e54767cb",
+              "leftValue": "={{$node[\"AI Resume Evaluator\"].json.output.score}}",
+              "rightValue": 75,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1024,
+        -16
+      ],
+      "id": "965ed6b1-8016-4e0b-90a6-4118c511ca0a",
+      "name": "Candidate Shortlisting"
+    },
+    {
+      "parameters": {
+        "sendTo": "bangatiashreyanshi@gmail.com",
+        "subject": "🎉 Candidate Shortlisted for Technical Interview",
+        "message": "=Hello HR,  A new candidate has been shortlisted by the AI Recruitment System.  Candidate Summary:  Name: {{$json.Name}}  AI Score: {{$node[\"AI Resume Evaluator\"].json.output.score}}  Decision: {{$node[\"AI Resume Evaluator\"].json.output.decision}}  Reason: {{$node[\"AI Resume Evaluator\"].json.output.reason}}  Summary: {{$node[\"AI Resume Evaluator\"].json.output.summary}}  Regards, AI Recruitment Platform",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1328,
+        -192
+      ],
+      "id": "5ca30db5-c665-400f-bad3-18262abcb102",
+      "name": "HR Notification",
+      "webhookId": "12e65573-74b6-409c-8d40-e8ef6177f964",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "dRcb05oUGH7yh1nL",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "shreyanshibangatia@gmail.com",
+          "mode": "list",
+          "cachedResultName": "shreyanshibangatia@gmail.com"
+        },
+        "start": "=2026-07-30T10:00:00",
+        "end": "=2026-07-30T11:00:00",
+        "additionalFields": {
+          "description": "=Candidate Name:\n{{$node[\"Candidate Registration Trigger\"].json[\"Question 1: Full Name \"]}}\n\nPosition:\n{{$node[\"Candidate Registration Trigger\"].json[\"Question 4: Position Applied For \"]}}\n\nAI Score:\n{{$node[\"AI Resume Evaluator\"].json.output.score}}\n\nDecision:\n{{$node[\"AI Resume Evaluator\"].json.output.decision}}\n\nReason:\n{{$node[\"AI Resume Evaluator\"].json.output.reason}}",
+          "guestsCanInviteOthers": true,
+          "location": "Google Meet"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        1328,
+        80
+      ],
+      "id": "a82bf83a-81e2-4a4f-be31-df31cadf6ff5",
+      "name": "Interview Scheduler",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "z9xPYIkupZTYMCh7",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{$node[\"Candidate Registration Trigger\"].json[\"Question 2: Email Address \"]}}",
+        "subject": "Interview Invitation | AI Recruitment Platform",
+        "message": "=Dear {{$node[\"Candidate Registration Trigger\"].json[\"Question 1: Full Name \"]}},  Congratulations!  We are pleased to inform you that your application has been shortlisted after our AI-powered resume evaluation.  Interview Details  Position: {{$node[\"Candidate Registration Trigger\"].json[\"Question 4: Position Applied For \"]}}  AI Evaluation Score: {{$node[\"AI Resume Evaluator\"].json.output.score}}/100  Date: 30 July 2026  Time: 10:00 AM – 11:00 AM  Location: Google Meet  Please join the meeting 10 minutes before the scheduled interview.  If you have any questions, simply reply to this email.  Best Regards,  HR Team AI Recruitment Platform Calendar Event:\n{{$node[\"Interview Scheduler\"].json.htmlLink}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1664,
+        -48
+      ],
+      "id": "2340e3b1-e03c-46fe-a1a3-c1a55581fdb9",
+      "name": "Candidate Interview Notification",
+      "webhookId": "684f975c-1bc2-4f22-862f-403c49ba404b",
+      "retryOnFail": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "dRcb05oUGH7yh1nL",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "AI Recruitment Workflow\n\n• Candidate Registration\n• Resume Parsing\n• AI Resume Evaluation\n• Candidate Shortlisting\n• Interview Scheduling\n• Candidate Notification",
+        "height": 208,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        560,
+        -448
+      ],
+      "id": "74edc925-52a1-40af-b3a1-71cb45e53163",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{$json[\"Email\"]}}",
+        "subject": "Application Status | TechNova Solutions",
+        "message": "={{\n`<html>\n<body style=\"font-family:Arial,sans-serif;\">\n\n<h2 style=\"color:#d32f2f;\">Application Update</h2>\n\n<p>Dear ${$json[\"Full Name\"]},</p>\n\n<p>\nThank you for applying for the position of <b>${$json[\"Position\"]}</b> at <b>TechNova Solutions</b>.\n</p>\n\n<p>\nAfter carefully reviewing your application, we regret to inform you that you have not been selected for the next stage of our recruitment process.\n</p>\n\n<p>\nWe truly appreciate the time and effort you invested in your application and encourage you to apply for future opportunities with us.\n</p>\n\n<p>We wish you all the best for your future endeavors.</p>\n\n<br>\n\nRegards,<br>\n<b>HR Team</b><br>\nTechNova Solutions\n\n</body>\n</html>`\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1328,
+        256
+      ],
+      "id": "50d265b8-6277-4dbf-b60e-586b7fd4b18a",
+      "name": "Rejected Candidate Notification",
+      "webhookId": "9cacdf3a-b593-4146-aea2-a998e09bcc5d",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "dRcb05oUGH7yh1nL",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY",
+          "mode": "list",
+          "cachedResultName": "Candidates Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 289624285,
+          "mode": "list",
+          "cachedResultName": "Audit Logs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY/edit#gid=289624285"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{$now}}",
+            "Candidate Name": "={{$node[\"Candidate Registration Trigger\"].json[\"Question 1: Full Name \"]}}",
+            "Event": "Rejection Email Sent",
+            "Status": "Success"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Candidate Name",
+              "displayName": "Candidate Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Event",
+              "displayName": "Event",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1552,
+        256
+      ],
+      "id": "3b1715f5-04b3-4ad1-942a-ffd30af814b2",
+      "name": "Audit Logger - Rejected",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "tIA7mGlVuR8Tja6H",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY",
+          "mode": "list",
+          "cachedResultName": "Candidates Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 289624285,
+          "mode": "list",
+          "cachedResultName": "Audit Logs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY/edit#gid=289624285"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $now }}",
+            "Candidate Name": "={{$json[\"Full Name\"]}}",
+            "Event": "Interview Email Sent",
+            "Status": "Success"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Candidate Name",
+              "displayName": "Candidate Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Event",
+              "displayName": "Event",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2048,
+        -144
+      ],
+      "id": "c9ac28a1-274f-405e-8a2c-7f0ecac6043a",
+      "name": "Offer Letter Sent",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "tIA7mGlVuR8Tja6H",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "fcf5b841-bcff-4fee-8150-94ad0bd23227",
+              "leftValue": "={{$json[\"id\"]}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1840,
+        -48
+      ],
+      "id": "03d3236f-3339-4c18-b510-2259051ff327",
+      "name": "Email Sent?"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY",
+          "mode": "list",
+          "cachedResultName": "Candidates Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 289624285,
+          "mode": "list",
+          "cachedResultName": "Audit Logs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY/edit#gid=289624285"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Event": "Interview Email Failed",
+            "Status": "Failed",
+            "Timestamp": "={{$now}}",
+            "Candidate Name": "={{$node[\"Candidate Registration Trigger\"].json[\"Question 1: Full Name \"]}}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Candidate Name",
+              "displayName": "Candidate Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Event",
+              "displayName": "Event",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2048,
+        48
+      ],
+      "id": "cccd21c5-64cb-49d5-a719-0754cdbb9789",
+      "name": "Audit Logger - Failed",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "tIA7mGlVuR8Tja6H",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Resume Evaluator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Resume Evaluator",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append rows in sheet": {
+      "main": [
+        [
+          {
+            "node": "Resume Downloader",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Candidate Registration Trigger": {
+      "main": [
+        [
+          {
+            "node": "Append rows in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resume Downloader": {
+      "main": [
+        [
+          {
+            "node": "Resume Parser",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resume Parser": {
+      "main": [
+        [
+          {
+            "node": "AI Resume Evaluator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Resume Evaluator": {
+      "main": [
+        [
+          {
+            "node": "Candidate Database Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Candidate Database Update": {
+      "main": [
+        [
+          {
+            "node": "Candidate Shortlisting",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Candidate Shortlisting": {
+      "main": [
+        [
+          {
+            "node": "HR Notification",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Interview Scheduler",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Rejected Candidate Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HR Notification": {
+      "main": [
+        [
+          {
+            "node": "Candidate Interview Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interview Scheduler": {
+      "main": [
+        [
+          {
+            "node": "Candidate Interview Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Candidate Interview Notification": {
+      "main": [
+        [
+          {
+            "node": "Email Sent?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rejected Candidate Notification": {
+      "main": [
+        [
+          {
+            "node": "Audit Logger - Rejected",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Sent?": {
+      "main": [
+        [
+          {
+            "node": "Offer Letter Sent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Audit Logger - Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "db6837b0-34ec-4327-8a95-f5ba9f9cefb0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0be67137d6d2f4514d7537800ce0d8ca5ed1cc2e2035f43e46170e5f49a7d9b0"
+  },
+  "nodeGroups": [],
+  "id": "c0v3pSBMwHivoWGJ",
+  "tags": []
+}

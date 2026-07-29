@@ -1,0 +1,155 @@
+{
+  "name": "03 - Recruitment Analytics Dashboard",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "32f5b68e-ec65-40a7-88df-87ab381f11e9",
+      "name": "Daily Report Scheduler"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY",
+          "mode": "list",
+          "cachedResultName": "Candidates Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Candidates",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Pe9QvR8CdDeOweOnT-oodgrZSPKacAGjNFyZESmjbZY/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "a5c62f3c-b59d-47d5-a96d-73e8d3187710",
+      "name": "Recruitment Database",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "tIA7mGlVuR8Tja6H",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all();\n\nconst total = rows.length;\nconst approved = rows.filter(r => r.json.Status === \"Approved\").length;\nconst rejected = rows.filter(r => r.json.Status === \"Rejected\").length;\nconst underReview = rows.filter(r => r.json.Status === \"Under Review\").length;\n\nreturn [{\n  json: {\n    report: `📊 Recruitment Analytics Report\n\nTotal Applications: ${total}\n\nApproved Candidates: ${approved}\n\nRejected Candidates: ${rejected}\n\nUnder Review: ${underReview}\n\nGenerated Automatically by n8n`\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "303ca0f0-cf00-4c98-bf4c-a9a728907f33",
+      "name": "Analytics Engine"
+    },
+    {
+      "parameters": {
+        "sendTo": "bangatiashreyanshi@gmail.com",
+        "subject": "Daily Recruitment Analytics Report",
+        "message": "={{$json.report}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        624,
+        0
+      ],
+      "id": "95087641-2d69-40f1-a3b8-97f4b7a8ce53",
+      "name": "Analytics Report Sender",
+      "webhookId": "37d6baaf-d037-482b-9258-935259fca09c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "dRcb05oUGH7yh1nL",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Recruitment Analytics\n\n• Daily Report Generation\n• Candidate Statistics\n• Automated HR Report",
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        256,
+        -192
+      ],
+      "id": "ab91f4b4-8b25-40fa-9453-fffddb108d9e",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Daily Report Scheduler": {
+      "main": [
+        [
+          {
+            "node": "Recruitment Database",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recruitment Database": {
+      "main": [
+        [
+          {
+            "node": "Analytics Engine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analytics Engine": {
+      "main": [
+        [
+          {
+            "node": "Analytics Report Sender",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "e94af87f-983b-4ce2-b79b-8f839e9a80c9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0be67137d6d2f4514d7537800ce0d8ca5ed1cc2e2035f43e46170e5f49a7d9b0"
+  },
+  "nodeGroups": [],
+  "id": "33lWPTmrAG69d5YL",
+  "tags": []
+}
