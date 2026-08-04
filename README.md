@@ -6,9 +6,9 @@ An end-to-end AI-powered recruitment automation platform built using **n8n** to 
 
 ## ✨ Poster
 
-![AI Recruitment & Hiring Platform Poster](Poster-1.png)
+![AI Recruitment & Hiring Platform Poster](Poster-2.png)
 
-![Automated Interview Scheduling](Poster-2.png)
+![Automated Interview Scheduling](Poster-1.png)
 
 
 ## 🚀 Features
