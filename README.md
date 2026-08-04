@@ -6,9 +6,9 @@ An end-to-end AI-powered recruitment automation platform built using **n8n** to 
 
 ## ✨ Poster
 
-![AI Recruitment & Hiring Platform Poster](AI-recruitment-&-hiring-platform-poster.png)
+![AI Recruitment & Hiring Platform Poster](Poster-1.png)
 
-![Automated Interview Scheduling](automated-interview-scheduling.jpeg)
+![Automated Interview Scheduling](Poster-2.png)
 
 
 ## 🚀 Features
@@ -20,8 +20,11 @@ An end-to-end AI-powered recruitment automation platform built using **n8n** to 
 - 📊 Candidate scoring and shortlisting
 - 📋 Candidate data management with Google Sheets
 - 📧 Automated email notifications
-- 📅 Interview scheduling using Google Calendar *(In Progress)*
-- 📈 Recruitment analytics and reporting *(Planned)*
+- 📅 Automated Interview Scheduling using Google Calendar
+- 📄 AI-powered Offer Letter Generation
+- 📧 Automated Candidate & HR Email Notifications
+- 📈 Daily Recruitment Analytics Dashboard
+- 📊 Automated Recruitment Reporting
 
 ---
 
@@ -35,6 +38,10 @@ An end-to-end AI-powered recruitment automation platform built using **n8n** to 
 - **PDF Extractor** – Resume Parsing
 - **Gmail API** – Email Notifications
 - **Google Calendar API** – Interview Scheduling
+- Google Calendar API – Interview Scheduling
+- Cron Trigger – Automated Analytics
+- Google Gemini / OpenAI – AI Resume Evaluation & Offer Letter Generation
+- JavaScript Code Node – Recruitment Analytics
 
 ---
 
@@ -42,33 +49,40 @@ An end-to-end AI-powered recruitment automation platform built using **n8n** to 
 
 ```text
 Candidate
-    │
+      │
 Google Form
-    │
+      │
 Google Sheets Trigger
-    │
-Google Drive
-    │
-Download Resume
-    │
-Extract Resume Text
-    │
-OpenAI Resume Evaluation
-    │
-Structured Output Parser
-    │
-Candidate Score Generation
-    │
-Google Sheets Update
-    │
-Decision Making
-   ├──────────────┐
-   │              │
-Shortlisted    Rejected
-   │              │
-Gmail         Gmail
-   │
-Google Calendar
+      │
+Resume Download
+      │
+Resume Parsing
+      │
+AI Resume Evaluation
+      │
+Candidate Database Update
+      │
+Candidate Shortlisting
+      │
+      ├───────────────┐
+      │               │
+Rejected          Shortlisted
+      │               │
+Rejection Email   HR Notification
+                      │
+                      ▼
+             Interview Scheduling
+             (Google Calendar)
+                      │
+             Interview Invitation
+                      │
+             HR Approval
+                      │
+             Offer Letter Generation
+                      │
+             Offer Letter Email
+                      │
+         Recruitment Analytics (Cron)
 ```
 
 ---
@@ -117,20 +131,30 @@ Recruitment-Automation/
 ## 🔄 Current Workflow
 
 - Candidate submits application
-- Resume uploaded to Google Drive
-- Resume downloaded automatically
-- PDF content extracted
-- OpenAI analyzes resume
-- AI generates score and recommendation
+- Resume automatically downloaded
+- Resume parsed
+- AI evaluates resume
+- Candidate score generated
 - Candidate database updated
-- HR reviews shortlisted candidates
+- Candidate shortlisted or rejected
+- HR notified
+- Interview scheduled automatically
+- Google Calendar event created
+- Interview invitation email sent
+- HR approves candidate
+- AI generates offer letter
+- Offer letter emailed
+- Daily recruitment analytics report generated
 
 ---
 
 ## 🎯 Future Enhancements
 
 - AI Interview Feedback Analysis
-- Offer Letter Generation
+- Candidate Ranking Dashboard
+- Power BI Recruitment Dashboard
+- WhatsApp Notifications
+- Slack/MS Teams Integration
 - Duplicate Candidate Detection
 - Recruitment Dashboard
 - Skill Gap Analysis
